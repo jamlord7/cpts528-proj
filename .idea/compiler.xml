@@ -10,8 +10,5 @@
         <module name="memorymaster" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="memorymaster" target="9" />
-    </bytecodeTargetLevel>
   </component>
 </project>
