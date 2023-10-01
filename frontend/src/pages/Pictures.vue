@@ -3,7 +3,7 @@
     <div class="operationBoX">
       <el-button class="operationBtn uploadBtn"type="primary" icon="el-icon-upload2" @click="uploadDialogVisible = true">Upload</el-button>
       <el-button-group class="operationBtn operationBtnGrp">
-        <el-button  type="primary" icon="el-icon-video-play" @click="recognizeDialogVisible = true">Recognize</el-button>
+        <el-button  type="primary" icon="el-icon-video-play" @click="handleRecognizeClick">Recognize</el-button>
 <!--        <el-button  type="primary" icon="el-icon-circle-plus-outline">新建记忆集</el-button>-->
       </el-button-group>
       <el-input class="searchInput"
@@ -36,7 +36,7 @@
         <span slot="title">Recognize Pictures</span>
 
         <el-form ref="form">
-          <el-form-item v-for="row in selectedRows" :key="row.pictureName" label="Picture Name">
+          <el-form-item v-for="row in selectedRows" :key="row.pictureName">
             <span>{{ row.pictureName }}</span>
           </el-form-item>
         </el-form>
@@ -78,11 +78,19 @@ export default {
   },
   methods: {
     handleClose(done) {
-      this.showDialog = false;
+      this.recognizeDialogVisible = false;
       done();
     },
     updateTable(){
       this.$bus.$emit('update table', 0);
+    },
+    handleRecognizeClick(){
+      if (this.selectedRows.length == 0) {
+        alert("Please select pictures you want to recognize first!")
+      }
+      else {
+        this.recognizeDialogVisible = true
+      }
     },
     async handleRecognizeConfirm() {
       this.isRecognizeLoading = true;
